@@ -35,31 +35,31 @@ class DetailTableViewController: UITableViewController {
     
     /// Table view delegate
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if self.dataSource.shouldShowForrcast && self.dataSource.weather?.report.forecast != nil {
-            let headerView = UIView()
-            headerView.backgroundColor = UIColor.lightGray
-            
-            let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
-                tableView.bounds.size.width, height: tableView.bounds.size.height))
-            headerLabel.font = UIFont(name: "Verdana", size: 17)
-            headerLabel.textColor = UIColor.white
-            headerLabel.text = stringToDateString(for: self.dataSource.weather?.report.forecast?.conditions[section].dateIssued)
-            headerLabel.sizeToFit()
-            
-            headerView.addSubview(headerLabel)
-            
-            return headerView
+        if self.dataSource.weather?.report.forecast == nil && self.dataSource.weather?.report.conditions == nil {
+            return nil
         }
         
-        return nil
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.lightGray
+        
+        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
+            tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.font = UIFont(name: "Verdana", size: 17)
+        headerLabel.textColor = UIColor.white
+        headerLabel.text = stringToDateString(for: self.dataSource.weather?.report.forecast?.conditions[section].dateIssued)
+        headerLabel.sizeToFit()
+        
+        headerView.addSubview(headerLabel)
+        
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if self.dataSource.shouldShowForrcast && self.dataSource.weather?.report.forecast != nil {
-            return 25
+        if self.dataSource.weather?.report.forecast == nil && self.dataSource.weather?.report.conditions == nil {
+            return 0
         }
         
-        return 0
+        return 25
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
