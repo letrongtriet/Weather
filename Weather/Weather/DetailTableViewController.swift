@@ -101,7 +101,7 @@ extension DetailTableViewController {
         tableView.dataSource = dataSource
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 30
+        tableView.estimatedRowHeight = 600
         
         tableView.tableFooterView = UIView()
         
