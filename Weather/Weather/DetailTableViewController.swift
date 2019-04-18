@@ -70,7 +70,7 @@ class DetailTableViewController: UITableViewController {
             cell.populateCondition(condition)
         } else {
             guard let forecast = self.dataSource.weather?.report.forecast else { return }
-            cell.populateForecast(forecast, indexPath.row)
+            cell.populateForecast(forecast, condition: forecast.conditions[indexPath.section])
         }
     }
     

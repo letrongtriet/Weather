@@ -53,9 +53,7 @@ class DetailTableViewCell: UITableViewCell {
         }
     }
     
-    func populateForecast(_ forecast: ReportForecast, _ index: Int) {
-        let condition = forecast.conditions[index]
-        
+    func populateForecast(_ forecast: ReportForecast, condition: PurpleCondition) {
         let lon = forecast.lon
         let lat = forecast.lat
         
