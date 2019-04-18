@@ -35,7 +35,8 @@ class Report: Codable {
 class Ati: Codable {
     let text, ident: String
     let dateIssued: String
-    let source, letter: String
+    let source: String
+    let letter: String
     let conditions: AtiConditions
     
     init(text: String, ident: String, dateIssued: String, source: String, letter: String, conditions: AtiConditions) {
@@ -193,8 +194,9 @@ class PurpleCondition: Codable {
     let wind: Wind?
     let period: Period
     let change: String?
+    let windShear: WindShear?
     
-    init(text: String, dateIssued: String, lat: Double, lon: Double, elevationFt: Int, relativeHumidity: Int, flightRules: String, cloudLayers: [CloudLayer], cloudLayersV2: [CloudLayer], weather: [String], visibility: FluffyVisibility, wind: Wind?, period: Period, change: String?) {
+    init(text: String, dateIssued: String, lat: Double, lon: Double, elevationFt: Int, relativeHumidity: Int, flightRules: String, cloudLayers: [CloudLayer], cloudLayersV2: [CloudLayer], weather: [String], visibility: FluffyVisibility, wind: Wind?, period: Period, change: String?, windShear: WindShear?) {
         self.text = text
         self.dateIssued = dateIssued
         self.lat = lat
@@ -209,6 +211,7 @@ class PurpleCondition: Codable {
         self.wind = wind
         self.period = period
         self.change = change
+        self.windShear = windShear
     }
 }
 
@@ -218,6 +221,16 @@ class Period: Codable {
     init(dateStart: String, dateEnd: String) {
         self.dateStart = dateStart
         self.dateEnd = dateEnd
+    }
+}
+
+class WindShear: Codable {
+    let height, direction, speedKts: Int
+    
+    init(height: Int, direction: Int, speedKts: Int) {
+        self.height = height
+        self.direction = direction
+        self.speedKts = speedKts
     }
 }
 
