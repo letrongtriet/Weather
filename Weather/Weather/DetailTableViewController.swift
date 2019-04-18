@@ -62,6 +62,18 @@ class DetailTableViewController: UITableViewController {
         return 0
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? DetailTableViewCell else { return }
+        
+        if !self.dataSource.shouldShowForrcast {
+            guard let condition = self.dataSource.weather?.report.conditions else { return }
+            cell.populateCondition(condition)
+        } else {
+            guard let forecast = self.dataSource.weather?.report.forecast else { return }
+            cell.populateForecast(forecast, indexPath.row)
+        }
+    }
+    
 }
 
 /// functions

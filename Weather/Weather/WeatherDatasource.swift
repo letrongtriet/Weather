@@ -37,10 +37,10 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
     /// functions
     func fetch() {
         if let tempWeather = self.cache.getObject(for: airportIdentifier) {
-            print("YES")
+            print("Cache is available")
             self.weather = tempWeather
         } else {
-            print("NO")
+            print("Cache is not available")
             self.fetchNewWeather()
         }
         
@@ -55,8 +55,6 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
         decoder.dateDecodingStrategy = .iso8601
         
         decoder.decode(Weather.self, fromURL: urlString) { result in
-            print(result)
-            
             self.cache.cacheObject(for: result, key: self.airportIdentifier)
             
             self.weather = result
@@ -78,14 +76,6 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: detailViewCellId, for: indexPath) as! DetailTableViewCell
-        
-        if !shouldShowForrcast {
-            guard let condition = self.weather?.report.conditions else { return UITableViewCell() }
-            cell.populateCondition(condition)
-        } else {
-            guard let forecast = self.weather?.report.forecast else { return UITableViewCell() }
-            cell.populateForecast(forecast, indexPath.row)
-        }
         
         cell.selectionStyle = .none
         

@@ -128,7 +128,7 @@ extension WeatherViewController {
         
         actionSheet.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         
-        actionSheet.view.tintColor = .blue
+        actionSheet.view.tintColor = .black
         
         runOnMainThread {
             self.present(actionSheet, animated: true, completion: nil)
