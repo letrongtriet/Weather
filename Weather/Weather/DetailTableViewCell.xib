@@ -119,12 +119,18 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="airportLabel" destination="7cG-MG-qZO" id="OfC-ii-3KK"/>
                 <outlet property="airportName" destination="jo2-Oe-xse" id="DCk-ew-C0L"/>
+                <outlet property="airportStack" destination="yp1-Aa-PMF" id="dZe-6a-b4Q"/>
                 <outlet property="humidity" destination="TtB-1H-tMz" id="7zX-mH-VtW"/>
+                <outlet property="humidityStack" destination="ROV-27-dYF" id="fdD-xk-5tK"/>
                 <outlet property="temperationTitle" destination="DGu-U4-NJ6" id="a6z-nJ-hkY"/>
                 <outlet property="temperature" destination="oyM-4g-V4H" id="2eh-8M-SYu"/>
+                <outlet property="temperatureStack" destination="k8i-1N-8pS" id="php-UE-EeP"/>
                 <outlet property="visibility" destination="NZR-CK-dhc" id="HJs-L2-aau"/>
+                <outlet property="visibilityStack" destination="nFS-6J-1rk" id="bpH-tK-HrD"/>
                 <outlet property="weatherLabel" destination="ErS-5x-XyC" id="XuW-hU-wMP"/>
+                <outlet property="weatherStack" destination="PKq-Jr-3JD" id="Bra-PU-1fU"/>
             </connections>
             <point key="canvasLocation" x="-596.37681159420299" y="70.647321428571431"/>
         </tableViewCell>

@@ -35,7 +35,7 @@ class DetailTableViewController: UITableViewController {
     
     /// Table view delegate
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if self.dataSource.shouldShowForrcast {
+        if self.dataSource.shouldShowForrcast && self.dataSource.weather?.report.forecast != nil {
             let headerView = UIView()
             headerView.backgroundColor = UIColor.lightGray
             
@@ -55,7 +55,7 @@ class DetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if self.dataSource.shouldShowForrcast {
+        if self.dataSource.shouldShowForrcast && self.dataSource.weather?.report.forecast != nil {
             return 25
         }
         
@@ -66,10 +66,18 @@ class DetailTableViewController: UITableViewController {
         guard let cell = cell as? DetailTableViewCell else { return }
         
         if !self.dataSource.shouldShowForrcast {
-            guard let condition = self.dataSource.weather?.report.conditions else { return }
+            guard let condition = self.dataSource.weather?.report.conditions else {
+                cell.populateEmptyCell()
+                return
+            }
+            
             cell.populateCondition(condition)
         } else {
-            guard let forecast = self.dataSource.weather?.report.forecast else { return }
+            guard let forecast = self.dataSource.weather?.report.forecast else {
+                cell.populateEmptyCell()
+                return
+            }
+            
             cell.populateForecast(forecast, condition: forecast.conditions[indexPath.section])
         }
     }
@@ -93,7 +101,7 @@ extension DetailTableViewController {
         tableView.dataSource = dataSource
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 450
+        tableView.estimatedRowHeight = 30
         
         tableView.tableFooterView = UIView()
         

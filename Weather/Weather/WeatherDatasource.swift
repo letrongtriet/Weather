@@ -64,7 +64,7 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
     /// Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         if shouldShowForrcast {
-            return weather?.report.forecast?.conditions.count ?? 0
+            return weather?.report.forecast?.conditions.count ?? 1
         } else {
             return 1
         }

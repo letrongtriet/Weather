@@ -19,6 +19,27 @@ class DetailTableViewCell: UITableViewCell {
     @IBOutlet weak var weatherLabel: UILabel!
     
     @IBOutlet weak var temperationTitle: UILabel!
+    @IBOutlet weak var airportLabel: UILabel!
+    
+    /// Stackview
+    @IBOutlet weak var airportStack: UIStackView!
+    @IBOutlet weak var humidityStack: UIStackView!
+    @IBOutlet weak var weatherStack: UIStackView!
+    @IBOutlet weak var visibilityStack: UIStackView!
+    @IBOutlet weak var temperatureStack: UIStackView!
+    
+    /// prepare for reuse
+    override func prepareForReuse() {
+        airportStack.isHidden = false
+        humidityStack.isHidden = false
+        weatherStack.isHidden = false
+        visibilityStack.isHidden = false
+        temperatureStack.isHidden = false
+        
+        airportName.isHidden = false
+        airportLabel.text = "Airport"
+        airportLabel.textColor = .black
+    }
     
     /// functions
     func populateCondition(_ condition: ReportConditions) {
@@ -39,7 +60,9 @@ class DetailTableViewCell: UITableViewCell {
                 }
             }
         }
-
+        
+        self.temperationTitle.text = "Temperature"
+        
         self.temperature.text = "\(condition.tempC) ℃"
         self.humidity.text = "\(condition.relativeHumidity) g/m3"
         self.visibility.text = "\(condition.visibility.distanceSm) Sm"
@@ -90,5 +113,16 @@ class DetailTableViewCell: UITableViewCell {
         } else {
             self.weatherLabel.text = "No report"
         }
+    }
+    
+    func populateEmptyCell() {
+        humidityStack.isHidden = true
+        weatherStack.isHidden = true
+        visibilityStack.isHidden = true
+        temperatureStack.isHidden = true
+        
+        airportName.isHidden = true
+        airportLabel.text = "No data available"
+        airportLabel.textColor = .red
     }
 }
