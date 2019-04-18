@@ -2,14 +2,15 @@
 //  WeatherDatasource.swift
 //  Weather
 //
-//  Created by Triet MaaS Global on 17/04/2019.
+//  Created by Triet Le on 17/04/2019.
 //  Copyright © 2019 Triet Le. All rights reserved.
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherDatasource: NSObject, UITableViewDataSource {
-    let cache = NSCache<NSString, Weather>()
+    let cache = CacheManager.shareInstance
     
     var airportIdentifier = ""
     
@@ -18,7 +19,7 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
     var urlString = ""
     
     lazy var timer = Timer()
-
+    
     var shouldShowForrcast = false {
         didSet {
             self.dataChanged?()
@@ -27,16 +28,15 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
     
     var weather: Weather? {
         didSet {
-            cache.setObject(weather!, forKey: NSString(string: airportIdentifier))
             self.dataChanged?()
         }
     }
     
     var dataChanged: (() -> Void)?
     
+    /// functions
     func fetch() {
-        print(airportIdentifier)
-        if let tempWeather = cache.object(forKey: NSString(string: airportIdentifier)) {
+        if let tempWeather = self.cache.getObject(for: airportIdentifier) {
             print("YES")
             self.weather = tempWeather
         } else {
@@ -56,10 +56,14 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
         
         decoder.decode(Weather.self, fromURL: urlString) { result in
             print(result)
+            
+            self.cache.cacheObject(for: result, key: self.airportIdentifier)
+            
             self.weather = result
         }
     }
     
+    /// Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         if shouldShowForrcast {
             return weather?.report.forecast?.conditions.count ?? 0
@@ -72,17 +76,20 @@ class WeatherDatasource: NSObject, UITableViewDataSource {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if shouldShowForrcast {
-            return stringToDateString(for: weather?.report.forecast?.conditions[section].dateIssued)
-        }
-        
-        return nil
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: detailViewCellId, for: indexPath) as! DetailTableViewCell
         
+        if !shouldShowForrcast {
+            guard let condition = self.weather?.report.conditions else { return UITableViewCell() }
+            cell.populateCondition(condition)
+        } else {
+            guard let forecast = self.weather?.report.forecast else { return UITableViewCell() }
+            cell.populateForecast(forecast, indexPath.row)
+        }
+        
+        cell.selectionStyle = .none
+        
         return cell
     }
+    
 }

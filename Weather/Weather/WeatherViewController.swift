@@ -2,7 +2,7 @@
 //  WeatherViewController.swift
 //  Weather
 //
-//  Created by Triet MaaS Global on 17/04/2019.
+//  Created by Triet Le on 17/04/2019.
 //  Copyright © 2019 Triet Le. All rights reserved.
 //
 
@@ -14,6 +14,12 @@ class WeatherViewController: UIViewController {
         didSet {
             self.airportListTableViewController?.airports = airports
             UserDefaults.standard.set(self.airports, forKey: "ListOfAirport")
+        }
+    }
+    
+    var selectedAirports: [String] = UserDefaults.standard.object(forKey: "SelectedAirports") as? [String] ?? [] {
+        didSet {
+            UserDefaults.standard.set(self.selectedAirports, forKey: "SelectedAirports")
         }
     }
     
@@ -37,6 +43,12 @@ class WeatherViewController: UIViewController {
             self.airportListTableViewController?.didSelectAirport = { [weak self] (airport) in
                 print(airport)
                 
+                if let temp = self?.selectedAirports.contains(airport) {
+                    if !temp {
+                        self?.selectedAirports.append(airport)
+                    }
+                }
+                
                 self?.showDetailView(with: airport)
             }
             
@@ -49,6 +61,10 @@ class WeatherViewController: UIViewController {
     /// IBAction
     @IBAction func addNewAirport(_ sender: UIBarButtonItem) {
         showAddNewAirportAlert()
+    }
+    
+    @IBAction func showHistory(_ sender: UIBarButtonItem) {
+        showHistory()
     }
     
 }
@@ -95,6 +111,27 @@ extension WeatherViewController {
         
         runOnMainThread {
             self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
+    }
+    
+    func showHistory() {
+        guard selectedAirports.count > 0 else {
+            showAlert(with: "History is empty")
+            return
+        }
+        
+        let actionSheet = UIAlertController(title: "Viewed Airports", message: nil, preferredStyle: .actionSheet)
+        
+        for airport in selectedAirports {
+            actionSheet.addAction(UIAlertAction(title: airport, style: .default, handler: nil))
+        }
+        
+        actionSheet.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        
+        actionSheet.view.tintColor = .blue
+        
+        runOnMainThread {
+            self.present(actionSheet, animated: true, completion: nil)
         }
     }
     

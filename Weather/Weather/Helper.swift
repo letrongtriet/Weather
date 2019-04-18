@@ -2,11 +2,12 @@
 //  Helper.swift
 //  Weather
 //
-//  Created by Triet MaaS Global on 17/04/2019.
+//  Created by Triet Le on 17/04/2019.
 //  Copyright © 2019 Triet Le. All rights reserved.
 //
 
 import UIKit
+import CoreLocation
 
 public func showAlert(with message: String) {
     let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -71,7 +72,28 @@ public func stringToDateString(for string: String?) -> String? {
     let normalizedDateFormatter = DateFormatter()
     normalizedDateFormatter.timeZone = TimeZone.current
     normalizedDateFormatter.locale = Locale.current
-    normalizedDateFormatter.dateFormat = "EEEE d.M.yyyy HH:mm"
+    normalizedDateFormatter.dateFormat = "EEEE, dd.MM.yyyy HH:mm v"
     
     return normalizedDateFormatter.string(from: date)
+}
+
+func getPlacemark(forLocation location: CLLocation, completionHandler: @escaping (CLPlacemark?, String?) -> ()) {
+    let geocoder = CLGeocoder()
+    
+    geocoder.reverseGeocodeLocation(location, completionHandler: {
+        placemarks, error in
+        
+        if let err = error {
+            completionHandler(nil, err.localizedDescription)
+        } else if let placemarkArray = placemarks {
+            if let placemark = placemarkArray.first {
+                completionHandler(placemark, nil)
+            } else {
+                completionHandler(nil, "Placemark was nil")
+            }
+        } else {
+            completionHandler(nil, "Unknown error")
+        }
+    })
+    
 }

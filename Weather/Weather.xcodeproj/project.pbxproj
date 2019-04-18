@@ -20,6 +20,7 @@
 		11AC5FB52267635500ADA5F1 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC5FB32267635500ADA5F1 /* DetailTableViewCell.swift */; };
 		11AC5FB62267635500ADA5F1 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC5FB42267635500ADA5F1 /* DetailTableViewCell.xib */; };
 		11AC5FB82267724A00ADA5F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11AC5FB72267724A00ADA5F1 /* Assets.xcassets */; };
+		11D158CA226862F60052D3BD /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D158C9226862F60052D3BD /* CacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		11AC5FB32267635500ADA5F1 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		11AC5FB42267635500ADA5F1 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
 		11AC5FB72267724A00ADA5F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		11D158C9226862F60052D3BD /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				11AC5FAF2267609100ADA5F1 /* WeatherDatasource.swift */,
 				11AC5FB32267635500ADA5F1 /* DetailTableViewCell.swift */,
 				11AC5FB42267635500ADA5F1 /* DetailTableViewCell.xib */,
+				11D158C9226862F60052D3BD /* CacheManager.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				11AC5FA22267156700ADA5F1 /* WeatherViewController.swift in Sources */,
 				11AC5FA4226717A300ADA5F1 /* AirportListTableViewController.swift in Sources */,
 				11AC5F8722670C1600ADA5F1 /* AppDelegate.swift in Sources */,
+				11D158CA226862F60052D3BD /* CacheManager.swift in Sources */,
 				11AC5FAE22675ECA00ADA5F1 /* DetailTableViewController.swift in Sources */,
 				11AC5FA62267194500ADA5F1 /* WeatherModel.swift in Sources */,
 				11AC5FA0226713A400ADA5F1 /* Helper.swift in Sources */,
@@ -315,6 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E82Z46N6KL;
 				INFOPLIST_FILE = Weather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -332,6 +337,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E82Z46N6KL;
 				INFOPLIST_FILE = Weather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
